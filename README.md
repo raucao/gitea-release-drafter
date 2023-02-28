@@ -1,0 +1,2 @@
+# gitea-release-drafter
+
