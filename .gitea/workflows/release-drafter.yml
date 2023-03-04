@@ -1,3 +1,5 @@
+name: Release Drafter
+on: [push]
 jobs:
   release-drafter:
     runs-on: ubuntu-latest
