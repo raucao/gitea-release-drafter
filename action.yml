@@ -1,0 +1,7 @@
+name: Gitea Release Drafter
+author: Christian Schulze
+description: "automates release notes as a draft release whenever a pull request finds it's way into the default branch of your repository"
+inputs:
+  config-path:
+    description: 'Path of the configuration file for the drafter action'
+    required: false
