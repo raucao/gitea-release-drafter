@@ -113,12 +113,14 @@ func (a *Action) Run() error {
 
 	// build repo config
 	configReader, err := a.GetConfigFile(repo.DefaultBranch)
-	if err != nil && err.Error() != "404 Not Found" {
-		return err
-	} else if err.Error() == "404 Not Found" {
-		// no config file found
-		githubactions.Warningf("No such config file: .gitea/%s", a.config.ConfigPath)
-		configReader = bytes.NewReader([]byte{})
+	if err != nil {
+		if err.Error() != "404 Not Found" {
+			return err
+		} else {
+			// no config file found
+			githubactions.Warningf("No such config file: .gitea/%s", a.config.ConfigPath)
+			configReader = bytes.NewReader([]byte{})
+		}
 	}
 
 	config, err := config.ReadRepoConfig(configReader, repo.DefaultBranch)
