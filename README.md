@@ -4,6 +4,8 @@ _Gitea Release Drafter_ automates release notes as a draft release whenever a pu
 
 ⚠️ This action is compatible with gitea and forgejo starting from version `1.19.0`.
 
+![Screenshot 2023-03-05 at 23 05 12](https://user-images.githubusercontent.com/6138133/222988558-5e99e5b4-9955-4650-9ce6-6d565dd85f34.png)
+
 ## Using The Release Drafter
 
 ...
