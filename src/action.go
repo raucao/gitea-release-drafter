@@ -79,8 +79,12 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 	}
 
 	if draft != nil {
-		UpdateExistingDraft(a.client, a.config.RepoOwner, a.config.RepoName, draft, nextVersion.String(), b.String())
-		return draft, nil
+		updatedDraft, err := UpdateExistingDraft(a.client, a.config.RepoOwner, a.config.RepoName, draft, nextVersion.String(), b.String())
+		if err != nil {
+			return nil, err
+		}
+
+		return updatedDraft, nil
 	}
 
 	newDraft, err := CreateDraftRelease(a.client, a.config.RepoOwner, a.config.RepoName, cfg.DefaultBranch, fmt.Sprintf("v%s", nextVersion.String()), b.String())
