@@ -56,11 +56,14 @@ func CreateDraftRelease(c *gitea.Client, owner string, repo string, targetBranch
 }
 
 func UpdateExistingDraft(c *gitea.Client, owner string, repo string, draft *gitea.Release, nextVersion string, body string) (*gitea.Release, error) {
-	c.EditRelease(owner, repo, draft.ID, gitea.EditReleaseOption{
+	rel, _, err := c.EditRelease(owner, repo, draft.ID, gitea.EditReleaseOption{
 		TagName: nextVersion,
 		Title:   nextVersion,
 		Note:    body,
 	})
+	if err != nil {
+		return nil, err
+	}
 
-	return draft, nil
+	return rel, nil
 }
