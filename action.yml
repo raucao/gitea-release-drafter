@@ -2,7 +2,8 @@ name: Gitea Release Drafter
 author: Christian Schulze
 description: "automates release notes as a draft release whenever a pull request finds it's way into the default branch of your repository"
 runs:
-  using: go
+  using: docker
+  image: Dockerfile
 inputs:
   config-path:
     description: "Path of the configuration file for the drafter action"
