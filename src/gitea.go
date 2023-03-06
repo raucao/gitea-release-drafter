@@ -39,11 +39,11 @@ func FindReleases(c *gitea.Client, owner string, repo string) (*gitea.Release, *
 	return mostRecentDraftRelease, mostRecentRelease, err
 }
 
-func CreateDraftRelease(c *gitea.Client, owner string, repo string, targetBranch string, version string, body string) (*gitea.Release, error) {
+func CreateDraftRelease(c *gitea.Client, owner string, repo string, targetBranch string, title string, tag string, body string) (*gitea.Release, error) {
 	release, _, err := c.CreateRelease(owner, repo, gitea.CreateReleaseOption{
-		TagName:      version,
+		TagName:      tag,
 		Target:       targetBranch,
-		Title:        version,
+		Title:        title,
 		Note:         body,
 		IsDraft:      true,
 		IsPrerelease: false,
@@ -55,10 +55,10 @@ func CreateDraftRelease(c *gitea.Client, owner string, repo string, targetBranch
 	return release, err
 }
 
-func UpdateExistingDraft(c *gitea.Client, owner string, repo string, draft *gitea.Release, nextVersion string, body string) (*gitea.Release, error) {
+func UpdateExistingDraft(c *gitea.Client, owner string, repo string, draft *gitea.Release, title string, tag string, body string) (*gitea.Release, error) {
 	rel, _, err := c.EditRelease(owner, repo, draft.ID, gitea.EditReleaseOption{
-		TagName: nextVersion,
-		Title:   nextVersion,
+		TagName: tag,
+		Title:   title,
 		Note:    body,
 	})
 	if err != nil {

@@ -78,8 +78,17 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 		return nil, err
 	}
 
+	title := FillVariables(cfg.NameTemplate, TemplateVariables{
+		ReleaseVersion: nextVersion.String(),
+	})
+
+	// FIXME: require RESOLVED_VERSION to be set?
+	tag := FillVariables(cfg.TagTemplate, TemplateVariables{
+		ReleaseVersion: nextVersion.String(),
+	})
+
 	if draft != nil {
-		updatedDraft, err := UpdateExistingDraft(a.client, a.config.RepoOwner, a.config.RepoName, draft, nextVersion.String(), b.String())
+		updatedDraft, err := UpdateExistingDraft(a.client, a.config.RepoOwner, a.config.RepoName, draft, title, tag, b.String())
 		if err != nil {
 			return nil, err
 		}
@@ -87,7 +96,7 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 		return updatedDraft, nil
 	}
 
-	newDraft, err := CreateDraftRelease(a.client, a.config.RepoOwner, a.config.RepoName, cfg.DefaultBranch, fmt.Sprintf("v%s", nextVersion.String()), b.String())
+	newDraft, err := CreateDraftRelease(a.client, a.config.RepoOwner, a.config.RepoName, cfg.DefaultBranch, title, tag, b.String())
 	if err != nil {
 		return nil, err
 	}
