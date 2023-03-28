@@ -45,7 +45,7 @@ func ResolveVersion(cfg *config.RepoConfig, last *gitea.Release, changelog *Chan
 		if incMajor {
 			nextVersion = lastVersion.IncMajor()
 		} else if incMinor {
-			nextVersion = lastVersion.IncMajor()
+			nextVersion = lastVersion.IncMinor()
 		} else if incPatch {
 			nextVersion = lastVersion.IncPatch()
 		} else {
