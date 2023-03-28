@@ -52,7 +52,7 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 	// render changelog
 	var b strings.Builder
 
-	b.WriteString("# What's Changed")
+	b.WriteString("## Changes")
 	b.WriteString("\n\n")
 
 	// TODO: group by given label categories in config
@@ -62,7 +62,7 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 		for label, prs := range *changelog {
 			if len(prs) > 0 {
 				// TODO: here we should take the label from the config and only default to the name
-				fmt.Fprintf(&b, "## %s\n\n", strings.Title(label))
+				fmt.Fprintf(&b, "### %s\n\n", strings.Title(label))
 
 				for _, pr := range prs {
 					fmt.Fprintf(&b, "* %s (#%d) @%s\n", pr.Title, pr.Index, pr.Poster.UserName)
