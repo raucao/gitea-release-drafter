@@ -65,7 +65,7 @@ func updateOrCreateDraftRelease(a *Action, cfg *config.RepoConfig) (*gitea.Relea
 				fmt.Fprintf(&b, "## %s\n\n", strings.Title(label))
 
 				for _, pr := range prs {
-					fmt.Fprintf(&b, "* %s (#%d) @%s\n", pr.Title, pr.ID, pr.Poster.UserName)
+					fmt.Fprintf(&b, "* %s (#%d) @%s\n", pr.Title, pr.Index, pr.Poster.UserName)
 				}
 
 				b.WriteString("\n")
